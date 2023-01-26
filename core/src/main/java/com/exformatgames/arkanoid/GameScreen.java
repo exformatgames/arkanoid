@@ -40,12 +40,13 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
+		ScreenUtils.clear(0,0,0,1);
+
 		core.update(delta);
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		ScreenUtils.clear(0,0,0,1);
 		core.resize(width, height);
 	}
 
