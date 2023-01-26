@@ -8,6 +8,7 @@ import com.exformatgames.arkanoid.entities.BackgroundEntityBuilder;
 import com.exformatgames.arkanoid.entities.BallEntityBuilder;
 import com.exformatgames.arkanoid.entities.PaddleEntityBuilder;
 import com.exformatgames.arkanoid.entities.WallEntityBuilder;
+import com.exformatgames.arkanoid.systems.*;
 import com.github.exformatgames.defender.Core;
 
 public class ArkanoidCore extends Core {
@@ -30,6 +31,10 @@ public class ArkanoidCore extends Core {
 
     @Override
     protected void initGameSystems() {
-
+        addSystem(new BallCollisionSystem(assetManager));
+        addSystem(new BallControlSystem());
+        addSystem(new PlatformControlSystem());
+        addSystem(new DamageSystem());
+        addSystem(new BoxSystem());
     }
 }
