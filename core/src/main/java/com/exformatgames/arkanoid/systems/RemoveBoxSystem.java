@@ -8,15 +8,16 @@ import com.exformatgames.arkanoid.components.HPComponent;
 import com.github.exformatgames.defender.components.util_components.RemoveEntityComponent;
 import com.github.exformatgames.defender.utils.EntityBuilder;
 
-public class BoxSystem extends IteratingSystem {
+public class RemoveBoxSystem extends IteratingSystem {
 
-    public BoxSystem() {
+    public RemoveBoxSystem() {
         super(Family.all(BoxComponent.class).get());
     }
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
         HPComponent hpComponent = HPComponent.getComponent(entity);
+
         if (hpComponent.hp <= 0) {
             EntityBuilder.createComponent(entity, RemoveEntityComponent.class);
         }

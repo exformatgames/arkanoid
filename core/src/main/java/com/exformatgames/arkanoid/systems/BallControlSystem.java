@@ -7,9 +7,9 @@ import com.exformatgames.arkanoid.ArkanoidGame;
 import com.exformatgames.arkanoid.GameState;
 import com.exformatgames.arkanoid.components.BallComponent;
 import com.github.exformatgames.defender.components.box2d.TransformBodyComponent;
+import com.github.exformatgames.defender.components.box2d.transform_components.LinearVelocityBodyComponent;
 import com.github.exformatgames.defender.components.input_components.gesture_components.GesturePanComponent;
 import com.github.exformatgames.defender.components.input_components.gesture_components.GestureTapComponent;
-import com.github.exformatgames.defender.components.transform_components.LinearVelocityComponent;
 import com.github.exformatgames.defender.components.transform_components.PositionComponent;
 import com.github.exformatgames.defender.components.transform_components.SizeComponent;
 import com.github.exformatgames.defender.utils.EntityBuilder;
@@ -32,7 +32,7 @@ public class BallControlSystem extends IteratingSystem {
                 EntityBuilder.createComponent(entity, TransformBodyComponent.class).position.set(panComponent.position.x, positionComponent.y + sizeComponent.halfHeight);
 
             if (! tapComponent.position.isZero()){
-                EntityBuilder.createComponent(entity, LinearVelocityComponent.class).init(0, 7);
+                EntityBuilder.createComponent(entity, LinearVelocityBodyComponent.class).init(0, 10);
                 ArkanoidGame.GAME_STATE = GameState.IN_GAME;
             }
         }
