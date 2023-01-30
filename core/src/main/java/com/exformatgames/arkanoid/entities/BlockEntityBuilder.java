@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.exformatgames.arkanoid.ArkanoidGame;
-import com.exformatgames.arkanoid.components.BoxComponent;
+import com.exformatgames.arkanoid.components.BlockComponent;
 import com.exformatgames.arkanoid.components.HPComponent;
 import com.github.exformatgames.defender.components.box2d.BodyComponent;
 import com.github.exformatgames.defender.components.rendering_components.SpriteComponent;
@@ -28,9 +28,9 @@ public class BlockEntityBuilder extends EntityBuilder {
         Entity en = engine.createEntity();
         engine.addEntity(en);
 
-        createComponent(en, BoxComponent.class);
+        createComponent(en, BlockComponent.class);
         createComponent(en, HPComponent.class).hp = index;
-        createComponent(en, SpriteComponent.class).init(atlas.findRegion("block", index))
+        createComponent(en, SpriteComponent.class).init(textureAtlas.findRegion("block", index))
                 .setPosition(position.x, position.y);
         createComponent(en, ZIndexComponent.class).zIndex = 2;
         createComponent(en, SizeComponent.class).init(size);

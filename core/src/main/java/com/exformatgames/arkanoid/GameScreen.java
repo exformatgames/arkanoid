@@ -5,17 +5,13 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import com.github.exformatgames.defender.Constants;
+import com.github.exformatgames.defender.Configurations;
 
 public class GameScreen implements Screen {
 
@@ -23,19 +19,8 @@ public class GameScreen implements Screen {
 	private final TextureAtlas textureAtlas = new TextureAtlas();
 	private ArkanoidCore core;
 
-	private Viewport gameViewport;
-	private Viewport uiViewport;
-
 	@Override
 	public void show() {
-		gameViewport = new ExtendViewport(10.8f, 19.2f);
-		gameViewport.apply(true);
-		gameViewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
-
-		uiViewport = new ExtendViewport(10.8f, 22);
-		uiViewport.apply(true);
-		uiViewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
-
 		assetManager.load("audio/ball-contact-with-wall-sound.ogg", Sound.class);
 		assetManager.load("audio/ball-contact-with-block-sound.ogg", Sound.class);
 		assetManager.load("audio/ball-contact-with-paddle-sound.ogg", Sound.class);
@@ -45,12 +30,24 @@ public class GameScreen implements Screen {
 		assetManager.load("paddle.png", Texture.class);
 		assetManager.load("background.png", Texture.class);
 		assetManager.load("blocks.png", Texture.class);
+		assetManager.load("bonuses/length-bonus.png", Texture.class);
+		assetManager.load("bonuses/balls-bonus.png", Texture.class);
+		assetManager.load("bonuses/live-bonus.png", Texture.class);
+		assetManager.load("bonuses/bomb-bonus.png", Texture.class);
+
+		assetManager.load("font.png", Texture.class);
+		assetManager.load("font.fnt", BitmapFont.class);
+
 
 		while ( ! assetManager.update()){}
 
 		textureAtlas.addRegion("ball", new TextureRegion(assetManager.get("ball.png", Texture.class)));
 		textureAtlas.addRegion("paddle", new TextureRegion(assetManager.get("paddle.png", Texture.class)));
 		textureAtlas.addRegion("background", new TextureRegion(assetManager.get("background.png", Texture.class)));
+		textureAtlas.addRegion("length_bonus", new TextureRegion(assetManager.get("bonuses/length-bonus.png", Texture.class)));
+		textureAtlas.addRegion("balls_bonus", new TextureRegion(assetManager.get("bonuses/balls-bonus.png", Texture.class)));
+		textureAtlas.addRegion("live_bonus", new TextureRegion(assetManager.get("bonuses/live-bonus.png", Texture.class)));
+		textureAtlas.addRegion("bomb_bonus", new TextureRegion(assetManager.get("bonuses/bomb-bonus.png", Texture.class)));
 
 		for (int i = 0; i < 8; i++) {
 			textureAtlas.addRegion("block", assetManager.get("blocks.png", Texture.class), i * 61, 0, 61, 28)
@@ -60,16 +57,15 @@ public class GameScreen implements Screen {
 		InputMultiplexer inputMultiplexer = new InputMultiplexer();
 		Gdx.input.setInputProcessor(inputMultiplexer);
 
-		core = new ArkanoidCore((OrthographicCamera) gameViewport.getCamera(), (OrthographicCamera) uiViewport.getCamera(), new World(new Vector2(), true), new SpriteBatch(), inputMultiplexer, textureAtlas, assetManager);
-		//core = new ArkanoidCore(new Vector2(10.8f, 19.2f), new Vector2(10.8f, 19.2f), new Vector2(), inputMultiplexer, textureAtlas, assetManager);
-		core.create(true, false);
+		Configurations.SCL = 0.01f;
+		Configurations.DIVIDER = 100;
+		Configurations.WORLD_WIDTH = 10.8f;
+		Configurations.WORLD_HEIGHT = 19.2f;
+		Configurations.UI_WIDTH = 1080;
+		Configurations.UI_HEIGHT = 1920;
 
-		Constants.WORLD_WIDTH = 10.8f;
-		Constants.WORLD_HEIGHT = 19.2f;
-		Constants.UI_WIDTH = 10.8f;
-		Constants.UI_HEIGHT = 19.2f;
-		Constants.SCL = 0.01f;
-		Constants.DIVIDER = 100;
+		core = new ArkanoidCore(new Vector2(10.8f, 19.2f), new Vector2(Configurations.UI_WIDTH, Configurations.UI_HEIGHT), new Vector2(), inputMultiplexer, textureAtlas, assetManager);
+		core.create(true, false);
 	}
 
 	@Override
@@ -81,9 +77,6 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		gameViewport.update(width, height, true);
-		uiViewport.update(width, height, true);
-
 		core.resize(width, height);
 	}
 

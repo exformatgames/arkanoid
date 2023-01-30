@@ -2,5 +2,5 @@ package com.exformatgames.arkanoid.components;
 
 import com.badlogic.ashley.core.Component;
 
-public class BoxComponent implements Component {
+public class RestartComponent implements Component {
 }

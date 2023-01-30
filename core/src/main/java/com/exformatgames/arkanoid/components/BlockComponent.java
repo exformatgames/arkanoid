@@ -2,5 +2,5 @@ package com.exformatgames.arkanoid.components;
 
 import com.badlogic.ashley.core.Component;
 
-public class BoxContactComponent implements Component {
+public class BlockComponent implements Component {
 }

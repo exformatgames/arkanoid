@@ -2,31 +2,37 @@ package com.exformatgames.arkanoid;
 
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 import com.exformatgames.arkanoid.entities.*;
+import com.exformatgames.arkanoid.entities.ui.LivesEntityBuilder;
+import com.exformatgames.arkanoid.entities.ui.ScoreEntityBuilder;
 import com.exformatgames.arkanoid.systems.*;
-import com.github.exformatgames.defender.Constants;
+import com.exformatgames.arkanoid.systems.bonus_systems.BonusRemoveSystem;
+import com.exformatgames.arkanoid.systems.bonus_systems.BonusSpawnSystem;
+import com.exformatgames.arkanoid.systems.bonus_systems.ScoreMultipleSystem;
+import com.exformatgames.arkanoid.systems.defender.TimeActionSystem;
+import com.exformatgames.arkanoid.systems.ui.LivesSystem;
+import com.exformatgames.arkanoid.systems.ui.UIScoreSystem;
+import com.github.exformatgames.defender.Configurations;
 import com.github.exformatgames.defender.Core;
 
 public class ArkanoidCore extends Core {
 
-    public ArkanoidCore(OrthographicCamera gameCamera, OrthographicCamera uiCamera, World box2DWorld, SpriteBatch spriteBatch, InputMultiplexer inputMultiplexer, TextureAtlas atlas, AssetManager assetManager) {
-        super(gameCamera, uiCamera, box2DWorld, spriteBatch, inputMultiplexer, atlas, assetManager);
+
+    public ArkanoidCore(Vector2 viewportSize, Vector2 uiViewportSize, Vector2 gravity, InputMultiplexer inputMultiplexer, TextureAtlas atlas, AssetManager assetManager) {
+        super(viewportSize, uiViewportSize, gravity, inputMultiplexer, atlas, assetManager);
     }
 
     @Override
     protected void initEntities() {
         new BackgroundEntityBuilder().create();
-        new BallEntityBuilder().create(new Vector2(Constants.WORLD_WIDTH / 2, 1.3f));
+        new BallEntityBuilder().create(new Vector2(Configurations.WORLD_WIDTH / 2, 1.3f));
 
-        new WallEntityBuilder().create(new Vector2(0, Constants.WORLD_HEIGHT / 2));
-        new WallEntityBuilder().create(new Vector2(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT / 2));
-        new WallEntityBuilder().create(new Vector2(Constants.WORLD_WIDTH / 2, Constants.WORLD_HEIGHT), new Vector2(Constants.WORLD_WIDTH, 0.1f));
-        new WallEntityBuilder().create(new Vector2(Constants.WORLD_WIDTH / 2, 0f), new Vector2(Constants.WORLD_WIDTH, 0.1f));
+        new WallEntityBuilder().create(new Vector2(0, Configurations.WORLD_HEIGHT / 2));
+        new WallEntityBuilder().create(new Vector2(Configurations.WORLD_WIDTH, Configurations.WORLD_HEIGHT / 2));
+        new WallEntityBuilder().create(new Vector2(Configurations.WORLD_WIDTH / 2, Configurations.WORLD_HEIGHT), new Vector2(Configurations.WORLD_WIDTH, 0.1f));
+        new WallEntityBuilder().create(new Vector2(Configurations.WORLD_WIDTH / 2, 0f), new Vector2(Configurations.WORLD_WIDTH, 0.1f));
 
         new PaddleEntityBuilder().create();
         new DeadzoneEntityBuilder().create();
@@ -40,14 +46,25 @@ public class ArkanoidCore extends Core {
                 }
             }
         }
+
+        new ScoreEntityBuilder().create();
+        new LivesEntityBuilder().create();
     }
 
     @Override
     protected void initGameSystems() {
+        addSystem(new TimeActionSystem());
+        addSystem(new ScoreMultipleSystem());
+        addSystem(new ScoreSystem());
         addSystem(new BallCollisionSystem(assetManager));
+        addSystem(new LivesSystem());
+        addSystem(new UIScoreSystem());
         addSystem(new BallControlSystem());
-        addSystem(new PlatformControlSystem());
-        addSystem(new DamageSystem(atlas));
-        addSystem(new RemoveBoxSystem());
+        addSystem(new PaddleControlSystem());
+        addSystem(new PaddleCollisionSystem());
+        addSystem(new DamageSystem(textureAtlas));
+        addSystem(new BonusSpawnSystem());
+        addSystem(new BonusRemoveSystem());
+        addSystem(new RestartSystem());
     }
 }
