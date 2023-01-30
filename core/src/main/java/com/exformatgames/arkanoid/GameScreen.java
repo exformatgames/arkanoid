@@ -34,6 +34,7 @@ public class GameScreen implements Screen {
 		assetManager.load("bonuses/balls-bonus.png", Texture.class);
 		assetManager.load("bonuses/live-bonus.png", Texture.class);
 		assetManager.load("bonuses/bomb-bonus.png", Texture.class);
+		assetManager.load("bonuses/score-bonus.png", Texture.class);
 
 		assetManager.load("font.png", Texture.class);
 		assetManager.load("font.fnt", BitmapFont.class);
@@ -48,6 +49,7 @@ public class GameScreen implements Screen {
 		textureAtlas.addRegion("balls_bonus", new TextureRegion(assetManager.get("bonuses/balls-bonus.png", Texture.class)));
 		textureAtlas.addRegion("live_bonus", new TextureRegion(assetManager.get("bonuses/live-bonus.png", Texture.class)));
 		textureAtlas.addRegion("bomb_bonus", new TextureRegion(assetManager.get("bonuses/bomb-bonus.png", Texture.class)));
+		textureAtlas.addRegion("score_bonus", new TextureRegion(assetManager.get("bonuses/score-bonus.png", Texture.class)));
 
 		for (int i = 0; i < 8; i++) {
 			textureAtlas.addRegion("block", assetManager.get("blocks.png", Texture.class), i * 61, 0, 61, 28)

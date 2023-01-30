@@ -16,6 +16,7 @@ public class ScoreSystem extends IteratingSystem {
     protected void processEntity(Entity entity, float deltaTime) {
         ScoreComponent scoreComponent = ScoreComponent.getComponent(entity);
 
-        ArkanoidGame.SCORE += scoreComponent.score * scoreComponent.scalar;
+        ArkanoidGame.SCORE += scoreComponent.score;
+        entity.remove(ScoreComponent.class);
     }
 }

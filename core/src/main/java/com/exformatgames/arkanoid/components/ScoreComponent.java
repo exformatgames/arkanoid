@@ -7,7 +7,6 @@ import com.badlogic.ashley.core.Entity;
 public class ScoreComponent implements Component {
 
     public int score = 0;
-    public int scalar = 1;
 
     private final static ComponentMapper<ScoreComponent> mapper = ComponentMapper.getFor(ScoreComponent.class);
 

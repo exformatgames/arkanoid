@@ -4,7 +4,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.exformatgames.arkanoid.components.bonuses.BonusComponent;
-import com.github.exformatgames.defender.components.box2d.transform_components.TransformBodyComponent;
+import com.github.exformatgames.defender.components.box2d.contact_components.BeginContactComponent;
 import com.github.exformatgames.defender.components.rendering_components.CullingComponent;
 import com.github.exformatgames.defender.components.util_components.RemoveEntityComponent;
 import com.github.exformatgames.defender.utils.EntityBuilder;
@@ -18,8 +18,9 @@ public class BonusRemoveSystem extends IteratingSystem {
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
         CullingComponent cullingComponent = CullingComponent.getComponent(entity);
-        if ( ! cullingComponent.inViewport) {
-            EntityBuilder.createComponent(entity, TransformBodyComponent.class).position.set(2, 2);
+        BeginContactComponent beginContactComponent = BeginContactComponent.getComponent(entity);
+
+        if ( ! cullingComponent.inViewport || beginContactComponent != null) {
             EntityBuilder.createComponent(entity, RemoveEntityComponent.class);
         }
     }

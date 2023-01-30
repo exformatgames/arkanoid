@@ -1,11 +1,11 @@
 package com.exformatgames.arkanoid.entities;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.exformatgames.arkanoid.ArkanoidGame;
-import com.exformatgames.arkanoid.components.bonuses.BonusComponent;
-import com.exformatgames.arkanoid.components.bonuses.BonusType;
+import com.exformatgames.arkanoid.components.bonuses.*;
 import com.github.exformatgames.defender.components.box2d.BodyComponent;
 import com.github.exformatgames.defender.components.box2d.transform_components.LinearVelocityBodyComponent;
 import com.github.exformatgames.defender.components.rendering_components.CullingComponent;
@@ -22,31 +22,47 @@ public class BonusEntityBuilder extends EntityBuilder {
     @Override
     public void create() {}
 
-    public static void create(float x, float y, BonusType type) {
+    public static void create(float x, float y) {
         Entity en = engine.createEntity();
         engine.addEntity(en);
 
-        createComponent(en, BonusComponent.class).bonusType = type;
 
-        switch (type) {
-            case LENGTH: {
+        int random = MathUtils.random(0, 4);
+
+        switch (random) {
+            case 0: {
                 createComponent(en, SpriteComponent.class).init(textureAtlas.findRegion("length_bonus"))
                         .setPosition(x, y);
+                createComponent(en, BonusComponent.class).bonusType = BonusType.LENGTH;
+                createComponent(en, LengthBonusComponent.class);
                 break;
             }
-            case BALLS: {
+            case 1: {
                 createComponent(en, SpriteComponent.class).init(textureAtlas.findRegion("balls_bonus"))
                         .setPosition(x, y);
+                createComponent(en, BonusComponent.class).bonusType = BonusType.BALL;
+                createComponent(en, BallBonusComponent.class);
                 break;
             }
-            case LIVE: {
+            case 2: {
                 createComponent(en, SpriteComponent.class).init(textureAtlas.findRegion("live_bonus"))
                         .setPosition(x, y);
+                createComponent(en, BonusComponent.class).bonusType = BonusType.LIVE;
+                createComponent(en, LiveBonusComponent.class);
                 break;
             }
-            case BOMB: {
+            case 3: {
                 createComponent(en, SpriteComponent.class).init(textureAtlas.findRegion("bomb_bonus"))
                         .setPosition(x, y);
+                createComponent(en, BonusComponent.class).bonusType = BonusType.BOMB;
+                createComponent(en, BombBonusComponent.class);
+                break;
+            }
+            case 4: {
+                createComponent(en, SpriteComponent.class).init(textureAtlas.findRegion("score_bonus"))
+                        .setPosition(x, y);
+                createComponent(en, BonusComponent.class).bonusType = BonusType.SCORE_MUL;
+                createComponent(en, ScoreMulBonusComponent.class);
                 break;
             }
         }

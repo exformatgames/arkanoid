@@ -10,7 +10,7 @@ import com.github.exformatgames.defender.components.rendering_components.ui.Text
 public class UIScoreSystem extends IteratingSystem {
 
     public UIScoreSystem() {
-        super(Family.all(ScoreComponent.class).get());
+        super(Family.all(TextRenderComponent.class, ScoreComponent.class).get());
     }
 
     @Override

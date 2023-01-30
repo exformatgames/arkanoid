@@ -8,9 +8,7 @@ import com.exformatgames.arkanoid.entities.*;
 import com.exformatgames.arkanoid.entities.ui.LivesEntityBuilder;
 import com.exformatgames.arkanoid.entities.ui.ScoreEntityBuilder;
 import com.exformatgames.arkanoid.systems.*;
-import com.exformatgames.arkanoid.systems.bonus_systems.BonusRemoveSystem;
-import com.exformatgames.arkanoid.systems.bonus_systems.BonusSpawnSystem;
-import com.exformatgames.arkanoid.systems.bonus_systems.ScoreMultipleSystem;
+import com.exformatgames.arkanoid.systems.bonus_systems.*;
 import com.exformatgames.arkanoid.systems.defender.TimeActionSystem;
 import com.exformatgames.arkanoid.systems.ui.LivesSystem;
 import com.exformatgames.arkanoid.systems.ui.UIScoreSystem;
@@ -54,17 +52,23 @@ public class ArkanoidCore extends Core {
     @Override
     protected void initGameSystems() {
         addSystem(new TimeActionSystem());
-        addSystem(new ScoreMultipleSystem());
-        addSystem(new ScoreSystem());
         addSystem(new BallCollisionSystem(assetManager));
         addSystem(new LivesSystem());
         addSystem(new UIScoreSystem());
         addSystem(new BallControlSystem());
         addSystem(new PaddleControlSystem());
-        addSystem(new PaddleCollisionSystem());
-        addSystem(new DamageSystem(textureAtlas));
-        addSystem(new BonusSpawnSystem());
+
+        addSystem(new BombBonusApplySystem());
+        addSystem(new LengthBonusApplySystem());
+        addSystem(new BallBonusApplySystem());
+        addSystem(new LiveBonusApplySystem());
+        addSystem(new ScoreMulBonusApplySystem(assetManager));
+        addSystem(new ScoreMulBonusSystem());
+
         addSystem(new BonusRemoveSystem());
+
+        addSystem(new DamageSystem(textureAtlas));
+        addSystem(new ScoreSystem());
         addSystem(new RestartSystem());
     }
 }

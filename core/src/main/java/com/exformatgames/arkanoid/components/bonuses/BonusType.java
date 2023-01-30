@@ -4,7 +4,7 @@ public enum BonusType {
     LENGTH,
     GUN,
     LIVE,
-    BALLS,
+    BALL,
     BOMB,
     SCORE_MUL,
     FREEZE
