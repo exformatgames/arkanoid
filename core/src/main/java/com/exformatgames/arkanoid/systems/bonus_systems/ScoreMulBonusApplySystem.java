@@ -24,16 +24,20 @@ public class ScoreMulBonusApplySystem extends IteratingSystem {
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
+        Family family = Family.all(ScoreMulBonusComponent.class, RemoveEntityComponent.class).get();
+        if (getEngine().getEntitiesFor(family).size() > 0) {
+            RemoveEntityComponent removeEntityComponent = RemoveEntityComponent.getComponent(getEngine().getEntitiesFor(family).first());
+            removeEntityComponent.timer += 5;
+        } else {
+            Entity en = getEngine().createEntity();
+            getEngine().addEntity(en);
 
+            EntityBuilder.createComponent(en, ScoreMulBonusComponent.class);
+            EntityBuilder.createComponent(en, RemoveEntityComponent.class).timer = 5;
+            EntityBuilder.createComponent(en, PositionComponent.class).init(Configurations.WORLD_WIDTH / 2, Configurations.WORLD_HEIGHT);
+            EntityBuilder.createComponent(en, TextRenderComponent.class).init(assetManager.get("font.fnt", BitmapFont.class), "X2")
 
-        Entity en = getEngine().createEntity();
-        getEngine().addEntity(en);
-
-        EntityBuilder.createComponent(en, ScoreMulBonusComponent.class);
-        EntityBuilder.createComponent(en, RemoveEntityComponent.class).timer = 5;
-        EntityBuilder.createComponent(en, PositionComponent.class).init(Configurations.WORLD_WIDTH / 2, Configurations.WORLD_HEIGHT);
-        EntityBuilder.createComponent(en, TextRenderComponent.class).init(assetManager.get("font.fnt", BitmapFont.class), "X2")
-                .setScale(2);
-
+                    .setScale(2);
+        }
     }
 }
