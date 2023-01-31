@@ -67,7 +67,7 @@ public class GameScreen implements Screen {
 		Configurations.UI_HEIGHT = 1920;
 
 		core = new ArkanoidCore(new Vector2(10.8f, 19.2f), new Vector2(Configurations.UI_WIDTH, Configurations.UI_HEIGHT), new Vector2(), inputMultiplexer, textureAtlas, assetManager);
-		core.create(true, false);
+		core.create(false, false);
 	}
 
 	@Override

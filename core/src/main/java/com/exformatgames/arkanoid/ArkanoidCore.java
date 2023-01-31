@@ -9,7 +9,6 @@ import com.exformatgames.arkanoid.entities.ui.LivesEntityBuilder;
 import com.exformatgames.arkanoid.entities.ui.ScoreEntityBuilder;
 import com.exformatgames.arkanoid.systems.*;
 import com.exformatgames.arkanoid.systems.bonus_systems.*;
-import com.exformatgames.arkanoid.systems.defender.TimeActionSystem;
 import com.exformatgames.arkanoid.systems.ui.LivesSystem;
 import com.exformatgames.arkanoid.systems.ui.UIScoreSystem;
 import com.github.exformatgames.defender.Configurations;
@@ -51,10 +50,7 @@ public class ArkanoidCore extends Core {
 
     @Override
     protected void initGameSystems() {
-        addSystem(new TimeActionSystem());
         addSystem(new BallCollisionSystem(assetManager));
-        addSystem(new LivesSystem());
-        addSystem(new UIScoreSystem());
         addSystem(new BallControlSystem());
         addSystem(new PaddleControlSystem());
 
@@ -68,6 +64,8 @@ public class ArkanoidCore extends Core {
         addSystem(new BonusRemoveSystem());
 
         addSystem(new DamageSystem(textureAtlas));
+        addSystem(new LivesSystem());
+        addSystem(new UIScoreSystem());
         addSystem(new ScoreSystem());
         addSystem(new RestartSystem());
     }
