@@ -50,9 +50,12 @@ public class ArkanoidCore extends Core {
 
     @Override
     protected void initGameSystems() {
-        addSystem(new BallCollisionSystem(assetManager));
         addSystem(new BallControlSystem());
         addSystem(new PaddleControlSystem());
+
+        addSystem(new BallCollisionSystem(assetManager));
+        addSystem(new DamageSystem(textureAtlas));
+
 
         addSystem(new BombBonusApplySystem());
         addSystem(new LengthBonusApplySystem());
@@ -60,13 +63,12 @@ public class ArkanoidCore extends Core {
         addSystem(new LiveBonusApplySystem());
         addSystem(new ScoreMulBonusApplySystem(assetManager));
         addSystem(new ScoreMulBonusSystem());
-
         addSystem(new BonusRemoveSystem());
 
-        addSystem(new DamageSystem(textureAtlas));
+        addSystem(new ScoreSystem());
+
         addSystem(new LivesSystem());
         addSystem(new UIScoreSystem());
-        addSystem(new ScoreSystem());
         addSystem(new RestartSystem());
     }
 }

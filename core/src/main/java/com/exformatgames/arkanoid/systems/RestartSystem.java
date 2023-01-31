@@ -11,7 +11,6 @@ import com.exformatgames.arkanoid.entities.*;
 import com.exformatgames.arkanoid.entities.ui.LivesEntityBuilder;
 import com.exformatgames.arkanoid.entities.ui.ScoreEntityBuilder;
 import com.github.exformatgames.defender.Configurations;
-import com.github.exformatgames.defender.components.box2d.WorldComponent;
 import com.github.exformatgames.defender.components.util_components.RemoveEntityComponent;
 import com.github.exformatgames.defender.utils.EntityBuilder;
 
@@ -25,9 +24,6 @@ public class RestartSystem extends IteratingSystem {
     protected void processEntity(Entity entity, float deltaTime) {
         ArkanoidGame.GAME_STATE = GameState.READY;
         for (Entity en: getEngine().getEntities()) {
-            if (WorldComponent.getComponent(en) != null) { //fixme need update lib
-                continue;
-            }
             EntityBuilder.createComponent(en, RemoveEntityComponent.class);
         }
 

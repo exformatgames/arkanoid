@@ -4,13 +4,13 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.exformatgames.arkanoid.ArkanoidGame;
-import com.exformatgames.arkanoid.components.ScoreComponent;
+import com.exformatgames.arkanoid.components.UIScoreComponent;
 import com.github.exformatgames.defender.components.rendering_components.ui.TextRenderComponent;
 
 public class UIScoreSystem extends IteratingSystem {
 
     public UIScoreSystem() {
-        super(Family.all(TextRenderComponent.class, ScoreComponent.class).get());
+        super(Family.all(TextRenderComponent.class, UIScoreComponent.class).get());
     }
 
     @Override
