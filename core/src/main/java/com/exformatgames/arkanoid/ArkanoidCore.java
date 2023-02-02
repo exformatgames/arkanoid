@@ -70,5 +70,7 @@ public class ArkanoidCore extends Core {
         addSystem(new LivesSystem());
         addSystem(new UIScoreSystem());
         addSystem(new RestartSystem());
+
+        //addSystem(new DbgSystem(worldViewport, uiViewport, spriteBatch, new ShapeRenderer(), getEngine().getSystems().size() - 4));
     }
 }

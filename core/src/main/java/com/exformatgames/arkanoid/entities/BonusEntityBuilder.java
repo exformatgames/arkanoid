@@ -74,7 +74,6 @@ public class BonusEntityBuilder extends EntityBuilder {
         createComponent(en, PositionComponent.class).init(x, y);
         createComponent(en, CullingComponent.class).inViewport = true;
         createComponent(en, BodyComponent.class).init(BodyBuilder.buildBoxSensor(BodyDef.BodyType.DynamicBody, new Vector2(x, y), 0.64f, 0.32f, 0))
-                .setUserData(en)
                 .setFixedRotation(true)
                 .setSensor(true)
                 .setFilter(ArkanoidGame.MASK_BONUS, ArkanoidGame.CATEGORY_BONUS);

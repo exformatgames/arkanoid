@@ -6,10 +6,9 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.Vector2;
 import com.exformatgames.arkanoid.ArkanoidGame;
 import com.exformatgames.arkanoid.GameState;
+import com.exformatgames.arkanoid.components.BlockComponent;
 import com.exformatgames.arkanoid.components.RestartComponent;
 import com.exformatgames.arkanoid.entities.*;
-import com.exformatgames.arkanoid.entities.ui.LivesEntityBuilder;
-import com.exformatgames.arkanoid.entities.ui.ScoreEntityBuilder;
 import com.github.exformatgames.defender.Configurations;
 import com.github.exformatgames.defender.components.util_components.RemoveEntityComponent;
 import com.github.exformatgames.defender.utils.EntityBuilder;
@@ -23,21 +22,15 @@ public class RestartSystem extends IteratingSystem {
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
         ArkanoidGame.GAME_STATE = GameState.READY;
-        for (Entity en: getEngine().getEntities()) {
-            EntityBuilder.createComponent(en, RemoveEntityComponent.class);
+        ArkanoidGame.LIVES = 3;
+        ArkanoidGame.SCORE = 0;
+
+        for (Entity blockEntity: getEngine().getEntitiesFor(Family.one(BlockComponent.class).get())) {
+            EntityBuilder.createComponent(blockEntity, RemoveEntityComponent.class);
         }
 
-
-        new BackgroundEntityBuilder().create();
         new BallEntityBuilder().create(new Vector2(Configurations.WORLD_WIDTH / 2, 1.3f));
 
-        new WallEntityBuilder().create(new Vector2(0, Configurations.WORLD_HEIGHT / 2));
-        new WallEntityBuilder().create(new Vector2(Configurations.WORLD_WIDTH, Configurations.WORLD_HEIGHT / 2));
-        new WallEntityBuilder().create(new Vector2(Configurations.WORLD_WIDTH / 2, Configurations.WORLD_HEIGHT), new Vector2(Configurations.WORLD_WIDTH, 0.1f));
-        new WallEntityBuilder().create(new Vector2(Configurations.WORLD_WIDTH / 2, 0f), new Vector2(Configurations.WORLD_WIDTH, 0.1f));
-
-        new PaddleEntityBuilder().create();
-        new DeadzoneEntityBuilder().create();
 
         for (int x = 0; x < 17; x++) {
             for (int y = 0; y < 20; y++) {
@@ -49,7 +42,6 @@ public class RestartSystem extends IteratingSystem {
             }
         }
 
-        new ScoreEntityBuilder().create();
-        new LivesEntityBuilder().create();
+        EntityBuilder.createComponent(entity, RemoveEntityComponent.class);
     }
 }

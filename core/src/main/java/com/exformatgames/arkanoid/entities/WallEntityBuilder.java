@@ -26,7 +26,6 @@ public class WallEntityBuilder extends EntityBuilder {
         createComponent(SizeComponent.class).init(size.x, size.y);
         createComponent(PositionComponent.class);
         createComponent(BodyComponent.class).init(BodyBuilder.buildBox(BodyDef.BodyType.KinematicBody, position, size.x, size.y))
-                .setUserData(entity)
                 .setFilter(ArkanoidGame.MASK_WALL, ArkanoidGame.CATEGORY_WALL);
     }
 }

@@ -2,7 +2,6 @@ package com.exformatgames.arkanoid.entities;
 
 import com.github.exformatgames.defender.Configurations;
 import com.github.exformatgames.defender.components.rendering_components.SpriteComponent;
-import com.github.exformatgames.defender.components.rendering_components.ZIndexComponent;
 import com.github.exformatgames.defender.utils.EntityBuilder;
 
 public class BackgroundEntityBuilder extends EntityBuilder {
@@ -12,6 +11,5 @@ public class BackgroundEntityBuilder extends EntityBuilder {
         createComponent(SpriteComponent.class).init(textureAtlas.findRegion("background"))
                 .setSize(Configurations.WORLD_WIDTH, Configurations.WORLD_HEIGHT)
                 .setPosition(0, 0);
-        createComponent(ZIndexComponent.class).zIndex = 1;
     }
 }

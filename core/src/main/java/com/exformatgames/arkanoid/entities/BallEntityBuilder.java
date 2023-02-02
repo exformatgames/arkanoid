@@ -13,6 +13,7 @@ import com.github.exformatgames.defender.components.rendering_components.SpriteC
 import com.github.exformatgames.defender.components.rendering_components.ZIndexComponent;
 import com.github.exformatgames.defender.components.transform_components.PositionComponent;
 import com.github.exformatgames.defender.components.transform_components.SizeComponent;
+import com.github.exformatgames.defender.components.util_components.DebugComponent;
 import com.github.exformatgames.defender.utils.BodyBuilder;
 import com.github.exformatgames.defender.utils.EntityBuilder;
 
@@ -23,6 +24,7 @@ public class BallEntityBuilder extends EntityBuilder {
     @Override
     public void create(Vector2 position) {
         createComponent(BallComponent.class);
+        createComponent(DebugComponent.class);
 
         createComponent(GesturePanComponent.class);
         createComponent(GestureTapComponent.class);
@@ -36,7 +38,6 @@ public class BallEntityBuilder extends EntityBuilder {
 
         createComponent(BodyComponent.class)
                 .init(BodyBuilder.buildBulletCircle(position.x, position.y, 0, 0, 0.12f))
-                .setUserData(entity)
                 .setRestitution(1.0001f)
                 .setFriction(0)
                 .setFilter(ArkanoidGame.MASK_BALL, ArkanoidGame.CATEGORY_BALL);
@@ -47,6 +48,7 @@ public class BallEntityBuilder extends EntityBuilder {
         engine.addEntity(en);
 
         createComponent(en, BallComponent.class);
+        createComponent(en, DebugComponent.class);
 
         createComponent(en, GesturePanComponent.class);
         createComponent(en, GestureTapComponent.class);
@@ -60,7 +62,6 @@ public class BallEntityBuilder extends EntityBuilder {
 
         createComponent(en, BodyComponent.class)
                 .init(BodyBuilder.buildBulletCircle(x, y, 0, 0, 0.12f))
-                .setUserData(en)
                 .setRestitution(1.0001f)
                 .setFriction(0)
                 .setFilter(ArkanoidGame.MASK_BALL, ArkanoidGame.CATEGORY_BALL);

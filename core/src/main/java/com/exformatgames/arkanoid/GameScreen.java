@@ -36,8 +36,8 @@ public class GameScreen implements Screen {
 		assetManager.load("bonuses/bomb-bonus.png", Texture.class);
 		assetManager.load("bonuses/score-bonus.png", Texture.class);
 
-		assetManager.load("font.png", Texture.class);
-		assetManager.load("font.fnt", BitmapFont.class);
+		assetManager.load("font2.png", Texture.class);
+		assetManager.load("font2.fnt", BitmapFont.class);
 
 
 		while ( ! assetManager.update()){}
@@ -67,7 +67,7 @@ public class GameScreen implements Screen {
 		Configurations.UI_HEIGHT = 1920;
 
 		core = new ArkanoidCore(new Vector2(10.8f, 19.2f), new Vector2(Configurations.UI_WIDTH, Configurations.UI_HEIGHT), new Vector2(), inputMultiplexer, textureAtlas, assetManager);
-		core.create(false, false);
+		core.create(true, false);
 	}
 
 	@Override

@@ -20,11 +20,10 @@ public class PaddleEntityBuilder extends EntityBuilder {
     public void create() {
         createComponent(PaddleComponent.class);
         createComponent(SpriteComponent.class).init(textureAtlas.findRegion("paddle"));
-        createComponent(ZIndexComponent.class).zIndex = 2;
+        createComponent(ZIndexComponent.class).zIndex = 1;
         createComponent(SizeComponent.class).init(1.12f, 0.18f);
         createComponent(PositionComponent.class);
         createComponent(BodyComponent.class).init(BodyBuilder.buildBox(BodyDef.BodyType.KinematicBody, new Vector2(Configurations.WORLD_WIDTH / 2, 1), 1.12f, 0.09f))
-                .setUserData(entity)
                 .setFixedRotation(true)
                 .setFilter(ArkanoidGame.MASK_PADDLE, ArkanoidGame.CATEGORY_PADDLE);
         createComponent(GesturePanComponent.class);

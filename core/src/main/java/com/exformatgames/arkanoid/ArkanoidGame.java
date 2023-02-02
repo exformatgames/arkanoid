@@ -5,6 +5,7 @@ import com.badlogic.gdx.Game;
 public class ArkanoidGame extends Game {
 
 	public static int SCORE = 0;
+	public static int LIVES = 3;
 
 	public static final short CATEGORY_BALL = 0x01;
 	public static final short CATEGORY_BONUS = 0x02;

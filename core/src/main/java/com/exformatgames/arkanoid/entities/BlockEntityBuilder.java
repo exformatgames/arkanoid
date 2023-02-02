@@ -36,7 +36,6 @@ public class BlockEntityBuilder extends EntityBuilder {
         createComponent(en, SizeComponent.class).init(size);
         createComponent(en, PositionComponent.class);
         createComponent(en, BodyComponent.class).init(BodyBuilder.buildBox(BodyDef.BodyType.StaticBody, position, size.x, size.y))
-                .setUserData(en)
                 .setFilter(ArkanoidGame.MASK_BLOCK, ArkanoidGame.CATEGORY_BLOCK);
 
     }

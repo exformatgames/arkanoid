@@ -19,6 +19,6 @@ public class ScoreEntityBuilder extends EntityBuilder {
                 .setPosition(Configurations.WORLD_WIDTH - 2, Configurations.WORLD_HEIGHT - 0.3f)
                 .setSize(2, 0.3f);
         createComponent(ZIndexComponent.class).zIndex = 4;
-        createComponent(TextRenderComponent.class).init(assetManager.get("font.fnt", BitmapFont.class), "").setScale(2);
+        createComponent(TextRenderComponent.class).init(assetManager.get("font2.fnt", BitmapFont.class), "").setScale(2);
     }
 }

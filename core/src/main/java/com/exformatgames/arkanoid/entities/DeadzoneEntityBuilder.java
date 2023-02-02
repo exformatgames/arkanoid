@@ -18,7 +18,6 @@ public class DeadzoneEntityBuilder extends EntityBuilder {
         createComponent(SizeComponent.class).init(Configurations.WORLD_WIDTH, 1);
 
         createComponent(BodyComponent.class).init(BodyBuilder.buildBox(BodyDef.BodyType.StaticBody, new Vector2(Configurations.WORLD_WIDTH / 2, 0), Configurations.WORLD_WIDTH, 1))
-                .setUserData(entity)
                 .setSensor(true)
                 .setFilter(ArkanoidGame.MASK_DEADZONE, ArkanoidGame.CATEGORY_DEADZONE);
     }
